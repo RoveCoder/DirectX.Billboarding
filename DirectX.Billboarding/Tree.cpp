@@ -33,8 +33,8 @@ bool Tree::Load()
     vertex.x = 0.0f;
     vertex.y = 0.0f;
     vertex.z = -2.0f;
-    vertex.width = 4.0f;
-    vertex.height = 6.0f;
+    vertex.width = 2.0f;
+    vertex.height = 3.0f;
 
     // Create vertex buffer
     D3D11_BUFFER_DESC vbd = {};

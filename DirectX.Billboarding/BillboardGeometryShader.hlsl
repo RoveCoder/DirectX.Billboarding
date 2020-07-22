@@ -3,7 +3,7 @@
 [maxvertexcount(4)]
 void main(point VertexOut input[1], inout TriangleStream<GeoOut> triStream)
 {
-	float halfWidth = input[0].SizeW.x / 2.0f;
+	//float halfWidth = input[0].SizeW.x / 2.0f;
 
 	float3 planeNormal = input[0].CenterW - gEyePosW;
 	planeNormal.y = 0.0f;
@@ -12,16 +12,14 @@ void main(point VertexOut input[1], inout TriangleStream<GeoOut> triStream)
 	float3 upVector = float3(0.0f, 1.0f, 0.0f);
 	float3 rightVector = normalize(cross(planeNormal, upVector));
 
-	rightVector = rightVector * halfWidth;
-
-	//float halfWidth = 0.5f * input[0].SizeW.x;
-	//float halfHeight = 0.5f * input[0].SizeW.y;
+	float halfWidth = 0.5f * input[0].SizeW.x;
+	float halfHeight = 0.5f * input[0].SizeW.y;
 
 	float3 vert[4];
-	vert[0] = input[0].CenterW - rightVector; // Get bottom left vertex
-	vert[1] = input[0].CenterW + rightVector; // Get bottom right vertex
-	vert[2] = input[0].CenterW - rightVector + upVector; // Get top left vertex
-	vert[3] = input[0].CenterW + rightVector + upVector; // Get top right vertex
+	vert[0] = input[0].CenterW + halfWidth * rightVector - halfHeight * upVector;
+	vert[1] = input[0].CenterW + halfWidth * rightVector + halfHeight * upVector;
+	vert[2] = input[0].CenterW - halfWidth * rightVector - halfHeight * upVector;
+	vert[3] = input[0].CenterW - halfWidth * rightVector + halfHeight * upVector;
 
 	GeoOut outputVert[4];
 	for (int i = 0; i < 4; i++)
