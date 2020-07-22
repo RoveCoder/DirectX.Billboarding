@@ -21,18 +21,28 @@
     <Filter Include="Source Files\Lighting">
       <UniqueIdentifier>{7cd29669-9a32-4754-9e84-52228572435e}</UniqueIdentifier>
     </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Header.hlsli">
-      <Filter>Shaders</Filter>
-    </None>
+    <Filter Include="Shaders\Default">
+      <UniqueIdentifier>{c8871593-fb79-4016-83ab-94a337018bac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders\Billboard">
+      <UniqueIdentifier>{c30a33ac-0ed7-417f-ab39-cbbe526720fa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="PixelShader.hlsl">
-      <Filter>Shaders</Filter>
+      <Filter>Shaders\Default</Filter>
     </FxCompile>
     <FxCompile Include="VertexShader.hlsl">
-      <Filter>Shaders</Filter>
+      <Filter>Shaders\Default</Filter>
+    </FxCompile>
+    <FxCompile Include="BillboardVertexShader.hlsl">
+      <Filter>Shaders\Billboard</Filter>
+    </FxCompile>
+    <FxCompile Include="BillboardPixelShader.hlsl">
+      <Filter>Shaders\Billboard</Filter>
+    </FxCompile>
+    <FxCompile Include="BillboardGeometryShader.hlsl">
+      <Filter>Shaders\Billboard</Filter>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
@@ -68,6 +78,12 @@
     </ClCompile>
     <ClCompile Include="Pillar.cpp">
       <Filter>Source Files\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="Tree.cpp">
+      <Filter>Source Files\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="BillboardShader.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -107,5 +123,19 @@
     <ClInclude Include="Pillar.h">
       <Filter>Source Files\Models</Filter>
     </ClInclude>
+    <ClInclude Include="Tree.h">
+      <Filter>Source Files\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="BillboardShader.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Header.hlsli">
+      <Filter>Shaders\Default</Filter>
+    </None>
+    <None Include="BillboardHeader.hlsli">
+      <Filter>Shaders\Billboard</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -1,12 +1,14 @@
 #include <SDL.h>
 #include "Renderer.h"
 #include "Shader.h"
+#include "BillboardShader.h"
 #include "Camera.h"
 #include <algorithm>
 
 #include "Crate.h"
 #include "Floor.h"
 #include "Pillar.h"
+#include "Tree.h"
 
 #include "DirectionalLightSource.h"
 #include "PointLightSource.h"
@@ -52,6 +54,10 @@ int main(int argc, char** argv)
 	if (!shader->Create())
 		return -1;
 
+	BillboardShader* billboardShader = new BillboardShader(renderer);
+	if (!billboardShader->Create())
+		return -1;
+
 	// Models
 	Crate* crate = new Crate(renderer);
 	if (!crate->Load())
@@ -71,6 +77,10 @@ int main(int argc, char** argv)
 
 	pillarLeft->Position.x = -3.0f;
 	pillarRight->Position.x = 3.0f;
+
+	Tree* tree = new Tree(renderer);
+	if (!tree->Load())
+		return -1;
 
 	// Lights
 	DirectionalLightSource* directionalLightSource = new DirectionalLightSource(renderer, camera);
@@ -147,6 +157,9 @@ int main(int argc, char** argv)
 
 			pillarLeft->Render(camera);
 			pillarRight->Render(camera);
+
+			billboardShader->Use();
+			tree->Render(camera);
 
 			// Draw scene
 			renderer->Render();

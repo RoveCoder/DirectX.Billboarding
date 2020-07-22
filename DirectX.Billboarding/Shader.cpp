@@ -21,6 +21,7 @@ void Shader::Use()
 {
 	m_Renderer->GetDeviceContext()->IASetInputLayout(m_VertexLayout);
 	m_Renderer->GetDeviceContext()->VSSetShader(m_VertexShader, nullptr, 0);
+	m_Renderer->GetDeviceContext()->GSSetShader(nullptr, nullptr, 0);
 	m_Renderer->GetDeviceContext()->PSSetShader(m_PixelShader, nullptr, 0);
 }
 
