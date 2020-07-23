@@ -29,6 +29,8 @@ public:
 	constexpr ID3D11Buffer* GetWorldConstantBuffer() { return m_WorldConstantBuffer; }
 	constexpr ID3D11Buffer* GetLightConstantBuffer() { return m_LightConstantBuffer; }
 
+	void SetBlendState();
+
 private:
 	SDL_Window* m_SdlWindow = nullptr;
 
@@ -69,6 +71,10 @@ private:
 
 	void CreateWorldConstantBuffer();
 	void CreateLightConstantBuffer();
+
+	// Blend state
+	ID3D11BlendState* m_BlendState = nullptr;
+	void CreateBlendState();
 };
 
 namespace DX

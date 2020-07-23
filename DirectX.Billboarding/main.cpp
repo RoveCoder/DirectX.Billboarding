@@ -158,6 +158,7 @@ int main(int argc, char** argv)
 			pillarLeft->Render(camera);
 			pillarRight->Render(camera);
 
+			renderer->SetBlendState();
 			billboardShader->Use();
 			tree->Render(camera);
 

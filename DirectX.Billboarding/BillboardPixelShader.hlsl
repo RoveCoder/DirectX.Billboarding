@@ -2,5 +2,8 @@
 
 float4 main(GeoOut input) : SV_TARGET
 {
-	return float4(1.0f, 0.0f, 0.0f, 1.0f);
+	float4 texture_diffuse = TextureDiffuse.Sample(SamplerAnisotropic, input.Texture);
+	clip(texture_diffuse.a - 0.1);
+
+	return	texture_diffuse;
 }

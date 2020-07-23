@@ -18,4 +18,6 @@ private:
 	ID3D11Buffer* m_VertexBuffer = nullptr;
 
 	ID3D11Buffer* m_Buffer = nullptr;
+
+	ID3D11ShaderResourceView* m_DiffuseTexture = nullptr;
 };

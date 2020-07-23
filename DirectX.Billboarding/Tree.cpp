@@ -41,7 +41,6 @@ bool Tree::Load()
     vbd.Usage = D3D11_USAGE_IMMUTABLE;
     vbd.ByteWidth = (UINT)(sizeof(TreePointSprite) * 1);
     vbd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-    vbd.CPUAccessFlags = 0;
 
     D3D11_SUBRESOURCE_DATA vInitData = {};
     vInitData.pSysMem = &vertex;
@@ -54,6 +53,11 @@ bool Tree::Load()
     bd.ByteWidth = sizeof(Buffer);
     bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
     DX::ThrowIfFailed(m_Renderer->GetDevice()->CreateBuffer(&bd, nullptr, &m_Buffer));
+
+    // Load texture
+    ID3D11Resource* resource = nullptr;
+    DX::ThrowIfFailed(DirectX::CreateDDSTextureFromFile(m_Renderer->GetDevice(), L"Textures\\tree0.dds", &resource, &m_DiffuseTexture));
+    resource->Release();
 
     return true;
 }
@@ -81,6 +85,8 @@ void Tree::Render(Camera* camera)
     m_Renderer->GetDeviceContext()->GSSetConstantBuffers(0, 1, &m_Buffer);
     m_Renderer->GetDeviceContext()->PSSetConstantBuffers(0, 1, &m_Buffer);
     m_Renderer->GetDeviceContext()->UpdateSubresource(m_Buffer, 0, nullptr, &cb, 0, 0);
+
+    m_Renderer->GetDeviceContext()->PSSetShaderResources(0, 1, &m_DiffuseTexture);
 
     // Render geometry
     m_Renderer->GetDeviceContext()->Draw(1, 0);

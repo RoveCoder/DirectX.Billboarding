@@ -29,6 +29,7 @@ bool Renderer::Init()
 	CreateRasterStateWireframe();
 
 	CreateAnisotropicFilter();
+	CreateBlendState();
 
 	EnableWireframe(false);
 
@@ -80,6 +81,13 @@ void Renderer::SetAnisotropicFilter()
 void Renderer::SetLinearFilter()
 {
 	m_DeviceContext->PSSetSamplers(0, 1, &m_LinearSampler);
+}
+
+void Renderer::SetBlendState()
+{
+	float blendFactor[] = { 0.0f, 0.0f, 0.0f, 0.0f };
+	UINT sampleMask = 0xffffffff;
+	m_DeviceContext->OMSetBlendState(m_BlendState, blendFactor, sampleMask);
 }
 
 void Renderer::CreateDevice()
@@ -286,4 +294,22 @@ void Renderer::CreateLightConstantBuffer()
 	bd.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
 	bd.CPUAccessFlags = 0;
 	DX::ThrowIfFailed(m_Device->CreateBuffer(&bd, nullptr, &m_LightConstantBuffer));
+}
+
+void Renderer::CreateBlendState()
+{
+	D3D11_BLEND_DESC blendDesc;
+	blendDesc.AlphaToCoverageEnable = true;
+	blendDesc.IndependentBlendEnable = false;
+
+	blendDesc.RenderTarget[0].BlendEnable = true;
+	blendDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
+	blendDesc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
+	blendDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+	blendDesc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
+	blendDesc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
+	blendDesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+	blendDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+
+	DX::ThrowIfFailed(m_Device->CreateBlendState(&blendDesc, &m_BlendState));
 }

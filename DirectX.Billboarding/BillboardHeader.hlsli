@@ -23,4 +23,8 @@ struct GeoOut
 {
 	float4 PosH    : SV_POSITION;
 	float3 PosW    : POSITION;
+	float2 Texture : TEXCOORD0;
 };
+
+SamplerState SamplerAnisotropic : register(s0);
+Texture2D TextureDiffuse : register(t0);
